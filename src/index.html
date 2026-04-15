@@ -320,7 +320,11 @@
     }
 
 function escapeHtml(str) {}
+
 function hapusCatatan(id) {
+  const konfirmasi = confirm('yakin ingin menghapus catatan ini?');
+  if (!konfirmasi) return;
+
   const semua = ambilSemuaCatatan();
   const baru = semua.filter(function (c) { return c.id !== id; });
   simpanSemuaCatatan(baru);
