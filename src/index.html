@@ -186,8 +186,6 @@
       });
     }
  
-    // ── RENDER DAFTAR CATATAN ──────────────────────────────────
- 
     function renderList() {
       const semua = ambilSemuaCatatan();
       const container = document.getElementById('list-catatan');
@@ -210,12 +208,12 @@
               <p class="preview-isi mb-1">${escapeHtml(c.isi)}</p>
               <span class="tgl">${formatTanggal(c.dibuat)}</span>
             </div>
-            <button class="btn btn=outline-primary btn-sm ms-3" onclick="bukaModalEdit('${c.id}')"> Edit</button>
+              <button class="btn btn-outline-primary btn-sm" onclick="bukaModalEdit('${c.id}')">Edit</button>
+              <button class="btn btn-outline-danger btn-sm" onclick="hapusCatatan('${c.id}')">Hapus</button>
+            </div>
           </div>`;
       }).join('');
     }
- 
-    // ── FITUR TAMBAH CATATAN ───────────────────────────────────
  
     const modalEl    = document.getElementById('modalTambah');
     const modalBS    = new bootstrap.Modal(modalEl);
@@ -313,8 +311,6 @@
       idSedangDiedit = null;
     });
  
-    // ── UTILITAS ───────────────────────────────────────────────
- 
     function escapeHtml(str) {
       return str
         .replace(/&/g, '&amp;')
@@ -322,10 +318,18 @@
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
     }
- 
-    // ── INISIALISASI ───────────────────────────────────────────
- 
-    renderList();
+
+function escapeHtml(str) {}
+function hapusCatatan(id) {
+  const semua = ambilSemuaCatatan();
+  const baru = semua.filter(function (c) { return c.id !== id; });
+  simpanSemuaCatatan(baru);
+  renderList();
+}
+
+renderList();
+
+  renderList();
   </script>
 </body>
 </html>
