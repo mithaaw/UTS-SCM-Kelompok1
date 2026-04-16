@@ -16,6 +16,27 @@
       flex-direction: column;
     }
 
+    .list-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .list-header h5 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #2c3e50;
+      margin: 0;
+    }
+    .list-header .badge-jumlah {
+      font-size: 12px;
+      background-color: #18bc9c;
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 99px;
+    }
+
     .navbar-brand {
       font-size: 20px;
       font-weight: 600;
@@ -76,6 +97,10 @@
 
   <div class="main-content">
     <div class="container" style="max-width: 680px">
+      <div class="list-header">
+        <h5>📋 Semua Catatan</h5>
+        <span class="badge-jumlah" id="badge-jumlah">0 catatan</span>
+      </div>
       <div id="list-catatan"></div>
     </div>
   </div>
@@ -189,7 +214,10 @@
     function renderList() {
       const semua = ambilSemuaCatatan();
       const container = document.getElementById('list-catatan');
- 
+
+      const badge = document.getElementById('badge-jumlah');
+      badge.textContent = semua.length + ' catatan';
+
       if (semua.length === 0) {
         container.innerHTML = `
           <div class="empty-state">
@@ -206,10 +234,10 @@
               <div style="flex:1; min-width=0;">
               <h6 class="card-title fw-semibold mb-1">${escapeHtml(c.judul)}</h6>
               <p class="preview-isi mb-1">${escapeHtml(c.isi)}</p>
-              <span class="tgl">${formatTanggal(c.dibuat)}</span>
+              <span class="tgl">${formatTanggal(c.dibuat)}${c.diubah ? ' · <em>diedit</em>' : ''}</span>
             </div>
-              <button class="btn btn-outline-primary btn-sm" onclick="bukaModalEdit('${c.id}')">Edit</button>
-              <button class="btn btn-outline-danger btn-sm" onclick="hapusCatatan('${c.id}')">Hapus</button>
+              <button class="btn btn-outline-primary btn-sm" onclick="bukaModalEdit('${c.id}')">✏️ Edit</button>
+              <button class="btn btn-outline-danger btn-sm" onclick="hapusCatatan('${c.id}')">🗑️ Hapus</button>
             </div>
           </div>`;
       }).join('');
@@ -298,7 +326,7 @@
       if (index !== -1) {
         semua[index].judul = judul;
         semua[index].isi = isi;
-        semua[index].diubah = new Date().toDateString();
+        semua[index].diubah = new Date().toISOString();
       }
 
       simpanSemuaCatatan(semua);
