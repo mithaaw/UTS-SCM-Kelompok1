@@ -29,7 +29,29 @@
  
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+        :root {
+      --cream:    #fdf8f2;
+      --paper:    #fff9f2;
+      --ink:      #2b2118;
+      --ink-soft: #6b5c4e;
+      --ink-faint:#b8a898;
+      --accent:   #c0622a;
+      --accent-lt:#f5e8df;
+      --teal:     #2e7d6f;
+      --teal-lt:  #e0f2ef;
+      --border:   #e8ddd4;
+      --shadow:   0 2px 12px rgba(43,33,24,.08);
+      --shadow-lg:0 8px 32px rgba(43,33,24,.14);
+      --radius:   12px;
+      --trans:    .2s cubic-bezier(.4,0,.2,1);
+    }
+ 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
       font-family: 'DM Sans', sans-serif;
       background: var(--cream);
       color: var(--ink);
@@ -66,7 +88,47 @@
       padding: 8px 18px;
       font-family: 'DM Sans', sans-serif;
       font-size: 13px;
+    .navbar {
+      background: var(--ink);
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 16px rgba(0,0,0,.18);
+    }
+
+    .navbar-brand .dot {
+      width: 8px; height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+        .btn-new {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 18px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
       font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background var(--trans), transform var(--trans);
+      white-space: nowrap; 
+      flex-shrink: 0;      
+    }
+    .btn-new:hover   { background: #a8501e; transform: translateY(-1px); }
+    .btn-new:active  { transform: translateY(0); }
+ 
+    .main-content {
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -196,9 +258,130 @@
       border: none;
       border-top: 1.5px solid var(--border);
       margin: 18px 0;
+      padding: 32px 16px 48px;
+    }
+    .container { max-width: 700px; margin: 0 auto; }
+
+    .search-wrap {
+      position: relative;
+      margin-bottom: 24px;
+    }
+    .search-wrap .icon-search {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ink-faint);
+      font-size: 15px;
+      pointer-events: none;
+    }
+    .search-wrap input {
+      width: 100%;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 40px 10px 40px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--ink);
+      outline: none;
+      transition: border-color var(--trans), box-shadow var(--trans);
+    }
+    .search-wrap input::placeholder { color: var(--ink-faint); }
+    .search-wrap input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(192,98,42,.12);
+    }
+    .btn-clear-cari {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--ink-faint);
+      font-size: 16px;
+      line-height: 1;
+      display: none;
+      padding: 2px;
+      transition: color var(--trans);
+    }
+    .btn-clear-cari:hover { color: var(--accent); }
+ 
+    .list-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .list-header h5 {
+      font-family: 'Lora', serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .badge-jumlah {
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--accent-lt);
+      color: var(--accent);
+      padding: 4px 12px;
+      border-radius: 99px;
+      letter-spacing: .2px;
+    }
+ 
+    .detail-box {
+      background: #fff;
+      border-radius: var(--radius);
+      border: 1.5px solid var(--border);
+      padding: 28px;
+      margin-bottom: 20px;
+      animation: slideDown .22s ease;
+      box-shadow: var(--shadow);
+    }
+    @keyframes slideDown {
+      from { opacity:0; transform: translateY(-8px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+    .detail-judul {
+      font-family: 'Lora', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .detail-tgl {
+      font-size: 11px;
+      color: var(--ink-faint);
+      display: block;
+      margin-bottom: 18px;
+    }
+    .detail-tgl .sep { margin: 0 6px; opacity:.5; }
+    .detail-isi {
+      font-size: 14.5px;
+      color: var(--ink-soft);
+      line-height: 1.85;
+      white-space: pre-wrap;
+    }
+    .detail-actions {
+      margin-top: 20px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .detail-divider {
+      border: none;
+      border-top: 1.5px solid var(--border);
+      margin: 18px 0;
     }
 
     .card-catatan {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      margin-bottom: 10px;
       background: #fff;
       border: 1.5px solid var(--border);
       border-radius: var(--radius);
@@ -215,8 +398,25 @@
       @keyframes fadeIn {
         from { opacity:0; transform:translateY(6px); }
         to   { opacity:1; transform:translateY(0); }
+      transition: box-shadow var(--trans), border-color var(--trans), transform var(--trans);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      animation: fadeIn .2s ease both;
+    }
+      @keyframes fadeIn {
+        from { opacity:0; transform:translateY(6px); }
+        to   { opacity:1; transform:translateY(0); }
     }
     .card-catatan:hover {
+      box-shadow: var(--shadow-lg);
+      border-color: #d4c4b8;
+      transform: translateY(-1px)
+    }
+    .card-catatan.aktif {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(192,98,42,.1), var(--shadow);
       box-shadow: var(--shadow-lg);
       border-color: #d4c4b8;
       transform: translateY(-1px)
@@ -243,13 +443,34 @@
       color: inherit;
     }
     .preview-isi {
+    .card-body-left { flex: 1; min-width: 0; }
+    .card-judul {
+      font-family: 'Lora', serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card-judul mark {
+      background: #ffe9a0;
+      border-radius: 3px;
+      padding: 0 2px;
+      color: inherit;
+    }
+    .preview-isi {
       font-size: 13px;
       color: var(--ink-faint);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       margin-bottom: 8px;
+      margin-bottom: 8px;
     }
+    .preview-isi mark { background:#ffe9a0; border-radius:3px; padding:0 2px; color:inherit; }
+    .tgl {
     .preview-isi mark { background:#ffe9a0; border-radius:3px; padding:0 2px; color:inherit; }
     .tgl {
       font-size: 11px;
@@ -345,7 +566,53 @@
     }
     .detail-box .detail-tgl {
       font-size: 12px;
-      color: #bdc3c7;
+      color: var(--ink-faint);
+    }
+    .tgl .edited-badge {
+      background: var(--teal-lt);
+      color: var(--teal);
+      padding: 1px 7px;
+      border-radius: 99px;
+      font-size: 10px;
+      font-weight: 600;
+      margin-left: 6px;
+    }
+    .card-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+ 
+        .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      transition: all var(--trans);
+      white-space: nowrap;
+    }
+    .btn-sm { padding: 5px 11px; font-size: 12px; }
+    .btn-primary   { background:var(--accent); color:#fff; border-color:var(--accent); }
+    .btn-primary:hover { background:#a8501e; border-color:#a8501e; }
+    .btn-secondary { background:#f0ebe4; color:var(--ink-soft); border-color:#e0d6cc; }
+    .btn-secondary:hover { background:#e0d6cc; }
+    .btn-outline-edit {
+      background: transparent;
+      color: var(--teal);
+      border-color: var(--teal);
+    }
+    .btn-outline-edit:hover { background: var(--teal-lt); }
+    .btn-outline-danger {
+      background: transparent;
+      color: #c0392b;
+      border-color: #e8c4c0;
       margin-bottom: 16px;
       display: block;
     }
@@ -359,12 +626,19 @@
       margin-top: 16px;
       display: flex;
       gap: 8px;
+    }    .btn-outline-danger:hover { background: #fdecea; }
+    .btn-outline-close {
+      background: transparent;
+      color: var(--ink-soft);
+      border-color: var(--border);
     }
+    .btn-outline-close:hover { background: #f0ebe4; }
+
     .empty-state {
       text-align: center;
 <<<<<<< HEAD
-      padding: 60px 0;
-      color: #95a5a6
+      padding: 64px 20px;
+      color: var(--ink-faint)
 =======
       padding: 64px 20px;
       color: var(--ink-faint);
@@ -392,7 +666,7 @@
       align-items: center;
       justify-content: center;
 >>>>>>> feature-tambahCatatan
-      padding: 16px;
+      padding: 14px;
       animation: fadeOverlay .18s ease;
     }
     @keyframes fadeOverlay {
@@ -538,6 +812,18 @@
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: #d4c4b8; border-radius: 3px; }
+      color: var(--ink-faint);
+      border-top: 1px solid var(--border);
+      background: #fff;
+      margin-top: auto;
+    }
+        footer span {
+      font-family: 'Lora', serif;
+      font-style: italic;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #d4c4b8; border-radius: 3px; }
   </style>
 </head>
 <body>
@@ -559,11 +845,29 @@
       </svg>
       Catatan Baru
     </button>
+    <button class="btn-new" id="btn-buka-modal">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+        <path d="M7 1v12M1 7h12" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      Catatan Baru
+    </button>
   </nav>
 
   <div class="main-content">
 <<<<<<< HEAD
-    <div class="container" style="max-width: 680px">
+    <div class="container" >
+      <div class="search-wrap">
+        <span class="icon-search">🔍</span>
+        <input type="text" id="input-cari" placeholder="Cari catatan berdasarkan judul atau isi..." />
+        <button class="btn-clear-cari" id="btn-clear-cari" title="Hapus pencarian">✕</button>
+      </div>
+ <div class="list-header">
+        <h5>Semua Catatan</h5>
+        <span class="badge-jumlah" id="badge-jumlah">0 catatan</span>
+      </div>
+ 
+      <div id="detail-catatan" style="display:none;"></div>
+ 
       <div class="list-header">
         <h5>📋 Semua Catatan</h5>
         <span class="badge-jumlah" id="badge-jumlah">0 catatan</span>
@@ -693,10 +997,13 @@
           <button type="button" class="btn btn-primary" id="btn-simpan-edit">Simpan Perubahan</button>
         </div>
       </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="modal-edit-batal">Batal</button>
+        <button class="btn btn-primary" id="btn-simpan-edit">Simpan Perubahan</button>
+      </div>
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 =======
 >>>>>>> feature-tambahCatatan
   <script>
@@ -716,6 +1023,7 @@
       if (!isoString) return '';
       const d = new Date(isoString);
       return d.toLocaleDateString('id-ID', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
         weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
       });
     }
@@ -823,7 +1131,53 @@
     function renderList() {
       const semua   = ambilSemuaCatatan();
       const query   = document.getElementById('input-cari').value.trim().toLowerCase();
+      const c = semua.find(function (x) { return x.id === id; });
+      if (!c) return;
+ 
+      idAktif = id;
+      const detailEl = document.getElementById('detail-catatan');
+      detailEl.style.display = 'block';
+      detailEl.innerHTML = `
+        <div class="detail-box">
+          <div class="detail-judul">${escapeHtml(c.judul)}</div>
+          <span class="detail-tgl">
+            📅 Dibuat: ${formatTanggal(c.dibuat)}
+            ${c.diubah ? '<span class="sep">·</span>Diedit: ' + formatTanggal(c.diubah) : ''}
+          </span>
+          <hr class="detail-divider" />
+          <div class="detail-isi">${escapeHtml(c.isi) || '<em style="color:var(--ink-faint)">Tidak ada isi catatan.</em>'}</div>
+          <div class="detail-actions">
+            <button class="btn btn-sm btn-outline-edit" onclick="bukaModalEdit('${c.id}')">✏️ Edit</button>
+            <button class="btn btn-sm btn-outline-danger" onclick="hapusCatatan('${c.id}')">🗑️ Hapus</button>
+            <button class="btn btn-sm btn-outline-close" onclick="tutupDetail()">✕ Tutup</button>
+          </div>
+        </div>`;
+      renderList();
+    }
+ 
+    function tutupDetail() {
+      idAktif = null;
+      const detailEl = document.getElementById('detail-catatan');
+      detailEl.style.display = 'none';
+      detailEl.innerHTML = '';
+      renderList();
+    }
+ 
+    // ─── RENDER LIST ─────────────────────────────────────────
+    function renderList() {
+      const semua   = ambilSemuaCatatan();
+      const query   = document.getElementById('input-cari').value.trim().toLowerCase();
       const container = document.getElementById('list-catatan');
+      const badge   = document.getElementById('badge-jumlah');
+ 
+      const filtered = query
+        ? semua.filter(function (c) {
+            return c.judul.toLowerCase().includes(query) ||
+                   (c.isi && c.isi.toLowerCase().includes(query));
+          })
+        : semua;
+ 
+      badge.textContent = semua.length + ' catatan';
 <<<<<<< HEAD
 
       const badge = document.getElementById('badge-jumlah');
@@ -860,6 +1214,8 @@
         return;
       }
  
+      container.innerHTML = filtered.map(function (c, i) {
+        const isAktif = c.id === idAktif;
       container.innerHTML = filtered.map(function (c, i) {
         const isAktif = c.id === idAktif;
         return `
@@ -965,8 +1321,20 @@
       inputJudul.classList.remove('is-invalid');
       bukaModal('modalTambah');
       setTimeout(function () { inputJudul.focus(); }, 80);
+      charTambah.textContent = '0';
+      inputJudul.classList.remove('is-invalid');
+      bukaModal('modalTambah');
+      setTimeout(function () { inputJudul.focus(); }, 80);
     });
  
+    function closeTambah() {
+      tutupModal('modalTambah');
+      inputJudul.classList.remove('is-invalid');
+    }
+    document.getElementById('modal-tambah-close').addEventListener('click', closeTambah);
+    document.getElementById('modal-tambah-batal').addEventListener('click', closeTambah);
+ 
+    document.getElementById('btn-simpan').addEventListener('click', function () {
     function closeTambah() {
       tutupModal('modalTambah');
       inputJudul.classList.remove('is-invalid');
@@ -986,9 +1354,9 @@
  
       const semua = ambilSemuaCatatan();
       semua.unshift({
-        id:     buatId(),
-        judul:  judul,
-        isi:    isi,
+        id:         buatId(),
+        judul:   judul,
+        isi:       isi,
         dibuat: new Date().toISOString(),
         diubah: null
       });
@@ -1131,6 +1499,16 @@ renderList();
       tampilToast('Catatan berhasil diperbarui ✔', 'success');
     });
  
+    // ─── HAPUS ───────────────────────────────────────────────
+    function hapusCatatan(id) {
+      if (!confirm('Yakin ingin menghapus catatan ini?')) return;
+      const semua = ambilSemuaCatatan();
+      simpanSemuaCatatan(semua.filter(function (c) { return c.id !== id; }));
+      if (idAktif === id) tutupDetail();
+      else renderList();
+      tampilToast('Catatan dihapus.', 'danger');
+    }
+
     // ─── HAPUS ───────────────────────────────────────────────
     function hapusCatatan(id) {
       if (!confirm('Yakin ingin menghapus catatan ini?')) return;
