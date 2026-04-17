@@ -304,6 +304,23 @@
       }).join('');
     }
  
+    const inputCari = document.getElementById('input-cari');
+    const btnClearCari = document.getElementById('btn-clear-cari');
+ 
+    inputCari.addEventListener('input', function () {
+      const val = this.value;
+      btnClearCari.style.display = val ? 'block' : 'none';
+      tutupDetail(); // tutup detail saat mengetik
+      renderList();
+    });
+ 
+    btnClearCari.addEventListener('click', function () {
+      inputCari.value = '';
+      btnClearCari.style.display = 'none';
+      inputCari.focus();
+      renderList();
+    });
+    
     const modalEl    = document.getElementById('modalTambah');
     const modalBS    = new bootstrap.Modal(modalEl);
     const btnBuka    = document.getElementById('btn-buka-modal');
